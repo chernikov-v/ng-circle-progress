@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnChanges, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, Output, ChangeDetectionStrategy} from '@angular/core';
 import {Subscription, timer} from 'rxjs';
 
 export interface CircleProgressOptionsInterface {
@@ -86,6 +86,7 @@ export class CircleProgressOptions implements CircleProgressOptionsInterface {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.OnPush,
     selector: 'circle-progress',
     template: `
         <svg xmlns="http://www.w3.org/2000/svg" *ngIf="svg"
@@ -363,6 +364,7 @@ export class CircleProgressComponent implements OnChanges {
             units: units,
             subtitle: subtitle,
         };
+        this.cdr.detectChanges();
     };
     getAnimationParameters = () => {
         const MIN_INTERVAL = 10;
@@ -461,7 +463,8 @@ export class CircleProgressComponent implements OnChanges {
     };
 
     constructor(
-        defaultOptions: CircleProgressOptions) {
+        defaultOptions: CircleProgressOptions
+        private cdr: ChangeDetectorRef) {
         Object.assign(this.options, defaultOptions);
         Object.assign(this.defaultOptions, defaultOptions);
     }
