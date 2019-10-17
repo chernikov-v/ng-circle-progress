@@ -1,4 +1,4 @@
-# ng-circle-progress
+# ng-circle-progress With OnPushchange Detection to fix animation
 
 ## Demo
 
